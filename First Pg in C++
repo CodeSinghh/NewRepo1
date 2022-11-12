@@ -1,0 +1,24 @@
+#include<iostream>
+using namespace std;
+
+int main(){
+  int n;
+  cin>>n;
+  int test_case;
+  int rem_case;
+  for(int i = 1;i<=n;i++){
+    cin>>test_case>>rem_case;
+  
+  int c = (2*test_case);
+  int kl = (5*rem_case);
+  if(c>kl){
+    cout<<"Chocolate"<<"\n";
+    }
+  if(c<kl){
+    cout<<"Candy"<<"\n";
+    }
+  if(c==kl){
+    cout<<"Either"<<"\n";
+    }
+  }
+}
