@@ -1,0 +1,28 @@
+import numpy as np
+from sklearn import linear_model
+import matplotlib.pyplot as plt
+
+# New dataset
+X = np.array([0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0]).reshape(-1, 1)
+y = np.array([0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1])
+
+# Create and train logistic regression model
+logr = linear_model.LogisticRegression()
+logr.fit(X, y)
+
+# Predict if a tumor is cancerous where the size is 3.75mm
+predicted = logr.predict(np.array([3.75]).reshape(-1, 1))
+print(f"Prediction for tumor size 3.75mm: {predicted[0]}")
+
+# Visualization
+X_test = np.linspace(0, 6, 300).reshape(-1, 1)
+y_prob = logr.predict_proba(X_test)[:, 1]
+
+plt.scatter(X, y, color='blue', label='Data points')
+plt.plot(X_test, y_prob, color='red', label='Logistic Regression')
+plt.axvline(x=3.75, color='green', linestyle='--', label='Tumor size 3.75mm')
+plt.title('Logistic Regression')
+plt.xlabel('Tumor Size (mm)')
+plt.ylabel('Probability of Being Cancerous')
+plt.legend()
+plt.show()
