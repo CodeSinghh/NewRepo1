@@ -1,0 +1,10 @@
+import numpy as np
+speed = [98,58,74,63,21,54,66,85,223,985,45,56]
+
+y = np.mean(speed)
+d = np.std(speed)
+m = np.median(speed)
+
+print("mean",y)
+print("median",m)
+print("standard deviation",d)
