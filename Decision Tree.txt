@@ -1,0 +1,40 @@
+import csv
+
+import numpy as np
+import pandas as pd
+mydata = pd.read_csv('IRIS.csv')
+
+mydata.tail()
+
+import seaborn as sns
+sns.pairplot(mydata)
+
+x = pd.DataFrame(mydata)
+features = ['petal_length', 'petal_width'] # 'sepal_length','sepal_width']
+X = x[features]
+y = x['species']
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, random_state = 42)
+
+import matplotlib.pyplot as plt
+from sklearn import tree
+from sklearn.tree import DecisionTreeClassifier
+
+dtree = DecisionTreeClassifier()
+dtree = dtree.fit(X, y)
+tree.plot_tree(dtree, feature_names = features)
+
+ypred = dtree.predict(X_test)
+y_train
+
+ypred
+
+t = 0
+f = 0
+for i, j in zip(y_test, ypred):
+  if(i==j):
+    t=t+1
+  else:
+    f=f+1
+print("True", t, "False", f)
+
