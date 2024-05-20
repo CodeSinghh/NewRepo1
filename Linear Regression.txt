@@ -1,0 +1,53 @@
+import csv
+import numpy as np
+import pandas as pd
+mydata = pd.read_csv('jobs_in_data.csv')
+x = pd.DataFrame(mydata)
+import matplotlib.pyplot as plt
+%matplotlib inline
+import seaborn as sns
+
+mydata.info()
+
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+label_encoder_x = LabelEncoder()
+mydata['job_title'] = label_encoder_x.fit_transform(mydata['job_title'])
+
+mydata['job_title']
+
+sns.pairplot(mydata)
+
+x = mydata[['salary']]
+y = mydata['salary_in_usd']
+
+from sklearn.model_selection import train_test_split
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.3, random_state = 42)
+import numpy as np
+from sklearn.linear_model import LinearRegression
+model = LinearRegression()
+model.fit(x_train, y_train)
+
+print(model.coef_)
+
+print(model.intercept_)
+
+pd.DataFrame(model.coef_, x.columns, columns = ['Coeff'])
+
+predictions = model.predict(x_test)
+plt.scatter(y_test, x_test, color = 'r')
+plt.scatter(y_test, predictions, color='b')
+
+plt.hist(y_test -predictions)
+
+y_test
+
+from sklearn import metrics
+
+print(metrics.mean_absolute_error(y_test, predictions))
+print(metrics.mean_squared_error(y_test, predictions))
+print(np.sqrt(metrics.mean_squared_error(y_test, predictions)))
+
+regressor = LinearRegression()
+regressor.fit(x_train, y_train)
+r2_score = regressor.score(x_test, y_test)
+print(r2_score*100, '%')
